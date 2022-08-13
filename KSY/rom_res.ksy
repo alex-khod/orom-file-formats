@@ -1,6 +1,6 @@
 meta:
   id: rage_of_mages_1_res
-  title: Rage Of Mages Seal Of Mystery resource files
+  title: Rage Of Mages Seal Of Mystery record files
   file-extension: res
   application: Rage Of Mages Seal Of Mystery
   license: CC0-1.0
@@ -25,10 +25,9 @@ types:
         type: resource_header
         size: 0x20
         repeat: eos
-
-  file_resource:
+  resource_record_file:
     seq:
-      - id: file_name
+      - id: name
         type: str
         size: 0x10
         terminator: 0
@@ -37,9 +36,9 @@ types:
         io: _root._io
         pos: _parent.root_offset
         size: _parent.root_size
-  directory_resource:
+  resource_record_directory:
     seq:
-      - id: directory_name
+      - id: name
         type: str
         size: 0x10
         encoding: IBM866
@@ -59,15 +58,15 @@ types:
         type: u4
       - id: root_size
         type: u4
-      - id: resource_type
+      - id: rec_type
         type: u4
-        enum: resource_type_e
-      - id: resource
+        enum: e_resource_record_type
+      - id: record
         type:
-          switch-on: resource_type
+          switch-on: rec_type
           cases:
-            resource_type_e::file: file_resource
-            resource_type_e::directory: directory_resource
+            e_resource_record_type::file: resource_record_file
+            e_resource_record_type::directory: resource_record_directory
 
   root_resource_header_t:
     seq:
@@ -75,7 +74,7 @@ types:
         type: u4
       - id: root_size
         type: u4
-      - id: resource_flags
+      - id: record_flags
         type: u4
         doc: not used???
       - id: fat_offset
@@ -85,6 +84,6 @@ types:
         doc: not used???
 
 enums:
-  resource_type_e:
+  e_resource_record_type:
     0: file
     1: directory

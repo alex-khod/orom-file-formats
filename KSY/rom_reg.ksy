@@ -27,7 +27,7 @@ types:
         type: u4
       - id: registry_flags
         type: u4
-        doc: not used???
+        doc: junk
       - id: registry_eat_size
         type: u4
       - id: junk
@@ -46,25 +46,25 @@ types:
 
   registry_header:
     instances:
-      e_type:
+      rec_type:
         pos: 0xC
         type: u4
-        enum: registry_type_e
+        enum: e_registry_record_type
     seq:
       - id: junk
         type: u4
       - id: value
         type:
-          switch-on: e_type
+          switch-on: rec_type
           cases:
-            registry_type_e::string: string_entry
-            registry_type_e::directory: directory_entry
-            registry_type_e::int: int_entry
-            registry_type_e::float: float_entry
-            registry_type_e::int_array: int_array_entry
+            e_registry_record_type::string: string_entry
+            e_registry_record_type::directory: directory_entry
+            e_registry_record_type::int: int_entry
+            e_registry_record_type::float: float_entry
+            e_registry_record_type::int_array: int_array_entry
             _: byte_entry
         size: 0x08
-      - id: typ
+      - id: type
         type: u4
       - id: name
         type: strz
@@ -126,7 +126,7 @@ types:
         size: e_count * 0x20
 
 enums:
-  registry_type_e:
+  e_registry_record_type:
     0: string
     1: directory
     2: int
