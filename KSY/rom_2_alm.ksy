@@ -135,6 +135,13 @@ types:
           byte TileColumnId => (byte) ((tile_id & 0x00F0) / 0x10);
           byte TileRowId    => (byte) Math.Min(tile_id & 0x0F, TerrainId != 2 ? 13 : 7);
 
+          Alternative way to calculate stuff
+
+          bool IsPassable   => (tile_id >> 8) & 0x20;
+          byte TerrainId    => (tile_id >> 8) & 0x03;
+          byte TileColumnId => tile_id >> 4;
+          byte TileRowId    => tile_id & 0x0F
+
   heights_sec:
     seq:
       - id: heights
@@ -307,7 +314,7 @@ types:
         enum: instance_type
       - id: id
         type: u4
-      - id: execute_once_flag
+      - id: run_once_flag
         type: u4
       - id: argument_values
         type: u4
@@ -337,7 +344,7 @@ types:
         enum: check_type
       - id: id
         type: u4
-      - id: execute_once_flag
+      - id: run_once_flag
         type: u4
       - id: argument_values
         type: u4
@@ -362,23 +369,19 @@ types:
         size: 0x80
         encoding: ASCII
         terminator: 0
-      - id: check_operators
+      - id: check_ids
         type: u4
         repeat: expr
         repeat-expr: 6
-      - id: instance_operators
+      - id: instance_ids
         type: u4
         repeat: expr
         repeat-expr: 4
-      - id: check_01_operator
+      - id: check_operators
         type: u4
-        enum: check_operator
-      - id: check_23_operator
-        type: u4
-        enum: check_operator
-      - id: check_45_operator
-        type: u4
-        enum: check_operator
+        repeat: expr
+        repeat-expr: 3
+        doc: 0,1,2 operators between 0 and 1, 2 and 3, 4 and 5 operand pairs
       - id: run_once_flag
         type: u4
 
