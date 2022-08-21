@@ -301,7 +301,7 @@ types:
               type: s4
               repeat: expr
               repeat-expr: 7
-            - id: server_ud
+            - id: server_id
               type: s4
             - id: known_spells
               type: u4
