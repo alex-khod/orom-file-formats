@@ -12,8 +12,8 @@ seq:
   - id: header
     type: section_header
     size: 0x14
-  - id: general_map_info    
-    type: general_map_info_sec
+  - id: general    
+    type: general_sec
   - id: sections
     type: alm_section
     repeat: expr
@@ -67,7 +67,7 @@ types:
             section_kind_e::triggers: triggers_sec
             section_kind_e::sacks: sacks_sec
             section_kind_e::effects: effects_sec
-  general_map_info_sec:
+  general_sec:
     seq:
       - id: width
         type: u4
@@ -120,7 +120,7 @@ types:
         type: tile_entry
         size: 0x02
         repeat: expr
-        repeat-expr: _root.general_map_info.width * _root.general_map_info.height
+        repeat-expr: _root.general.width * _root.general.height
   tile_entry:
     seq:
       - id: tile_id
@@ -147,21 +147,21 @@ types:
       - id: heights
         type: u1
         repeat: expr
-        repeat-expr: _root.general_map_info.width * _root.general_map_info.height
+        repeat-expr: _root.general.width * _root.general.height
 
   objects_sec:
     seq:
       - id: objects
         type: u1
         repeat: expr
-        repeat-expr: _root.general_map_info.width * _root.general_map_info.height
+        repeat-expr: _root.general.width * _root.general.height
 
   structures_sec:
     seq:
       - id: structures
         type: structure_entry
         repeat: expr
-        repeat-expr: _root.general_map_info.structure_count
+        repeat-expr: _root.general.structure_count
 
   structure_entry:
     seq:
@@ -197,7 +197,7 @@ types:
       - id: players
         type: player_entry
         repeat: expr
-        repeat-expr: _root.general_map_info.player_count
+        repeat-expr: _root.general.player_count
 
   player_entry:
     seq:
@@ -224,7 +224,7 @@ types:
       - id: units
         type: unit_entry
         repeat: expr
-        repeat-expr: _root.general_map_info.unit_count
+        repeat-expr: _root.general.unit_count
   unit_entry:
     seq:
       - id: x
@@ -390,7 +390,7 @@ types:
       - id: sacks
         type: sack_entry
         repeat: expr
-        repeat-expr: _root.general_map_info.sack_count
+        repeat-expr: _root.general.sack_count
   sack_entry:
     seq:
       - id: item_count
